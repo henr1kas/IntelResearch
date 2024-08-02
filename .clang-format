@@ -1,0 +1,14 @@
+BasedOnStyle: LLVM
+AlignEscapedNewlines: Left
+AlwaysBreakTemplateDeclarations: Yes
+BreakBeforeBraces: Custom
+BreakInheritanceList: AfterColon
+ColumnLimit:     0
+IncludeBlocks:   Regroup
+IndentCaseLabels: true
+IndentWidth:     4
+KeepEmptyLinesAtTheStartOfBlocks: false
+NamespaceIndentation: All
+PointerAlignment: Left
+SpaceAfterTemplateKeyword: false
+TabWidth:        4
