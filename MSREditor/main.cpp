@@ -1,8 +1,10 @@
 #include <iostream>
+#include <thread>
 
 #include "Constants.hpp"
 #include "MSR.hpp"
 #include "OCMailbox.hpp"
+#include "Utils.hpp"
 
 #ifdef _WIN32
 #include "Driver.hpp"
@@ -10,35 +12,7 @@
 
 /*
 std::uint8_t ReadTemperatureOffset() noexcept {
-    return static_cast<std::uint8_t>((Driver::ReadMSR(0x1a2) & (127 << 24)) >> 24);
-}
-
-double UnconvertRoundedOffset(const std::uint64_t y) noexcept {
-    const std::int64_t x = y >> 21;
-    return x <= 1024 ? static_cast<double>(x) : static_cast<double>(-(2048 - x));
-}
-
-double UnconvertOffset(const std::uint64_t y) noexcept {
-    return UnconvertRoundedOffset(y) / 1.024;
-}
-
-double UnpackOffset(const std::uint64_t data) noexcept {
-    const std::uint64_t plane = data / (1ull << static_cast<std::uint64_t>(OCMailboxBits::PARAM1));
-    const std::uint64_t offset = data ^ (plane << static_cast<std::uint64_t>(OCMailboxBits::PARAM1));
-    return UnconvertOffset(offset);
-}
-
-std::uint64_t PackOffset(const std::uint64_t plane, const std::uint64_t offset = 0) noexcept {
-    return (1ull << static_cast<std::uint64_t>(OCMailboxBits::BUSYBIT)) |
-           (plane << static_cast<std::uint64_t>(OCMailboxBits::PARAM1)) |
-           (1ull << 36) |
-           (static_cast<std::uint64_t>(offset != 0) << static_cast<std::uint64_t>(OCMailboxBits::CMD)) |
-           offset;
-}
-
-double GetVoltageOffset(const std::uint8_t plane) noexcept {
-    Driver::WriteMSR(0x150, PackOffset(plane));
-    return UnpackOffset(Driver::ReadMSR(0x150));
+    return static_cast<std::uint8_t>((MSR::Read(MSRRegister::UNK1A2) & (127 << 24)) >> 24);
 }
 
 std::uint64_t GetCacheRatioOffset() noexcept {
@@ -58,8 +32,19 @@ int main() {
         return 1;
     }
 #endif
+    /*
+    std::uint64_t prev = 0, curr = 0;
 
-
+    while (true) {
+        curr = MSR::Read(MSRRegister::UNCORECURRENTRATIO);
+        if (curr != prev) {
+            // undervolt
+        }
+        prev = curr;
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
+    */
+    std::cout << Utils::GetVoltageOffset(0) << '\n';
 
 #ifdef _WIN32
     Driver::CloseHandle();

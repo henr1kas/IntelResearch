@@ -138,6 +138,7 @@
     <ClInclude Include="Driver.hpp" />
     <ClInclude Include="MSR.hpp" />
     <ClInclude Include="OCMailbox.hpp" />
+    <ClInclude Include="Utils.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

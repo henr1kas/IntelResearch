@@ -7,19 +7,21 @@
 namespace OCMailbox {
     inline std::uint64_t Read(const OCMailboxCommand cmd) noexcept {
         std::uint64_t value = ocMailboxCommands[static_cast<std::uint64_t>(cmd)][0] << static_cast<std::uint64_t>(OCMailboxBits::CMD);
-        value |= (1ull << static_cast<std::uint64_t>(OCMailboxBits::BUSYBIT));
+        value |= (1ull << static_cast<std::uint64_t>(OCMailboxBits::RUNBUSY));
         value |= (ocMailboxCommands[static_cast<std::uint64_t>(cmd)][2] << static_cast<std::uint64_t>(OCMailboxBits::PARAM1));
+        value |= (ocMailboxCommands[static_cast<std::uint64_t>(cmd)][3] << static_cast<std::uint64_t>(OCMailboxBits::PARAM2));
         MSR::Write(MSRRegister::OCMAILBOX, value);
         return MSR::Read(MSRRegister::OCMAILBOX);
     }
 
-    inline void Write(const OCMailboxCommand cmd, const std::uint64_t data) noexcept {
+    inline void Write(const OCMailboxCommand cmd, const std::uint32_t data) noexcept {
         std::uint64_t value = ocMailboxCommands[static_cast<std::uint64_t>(cmd)][1] << static_cast<std::uint64_t>(OCMailboxBits::CMD);
         value |= data;
-        value |= (1ull << static_cast<std::uint64_t>(OCMailboxBits::BUSYBIT));
         value |= (ocMailboxCommands[static_cast<std::uint64_t>(cmd)][2] << static_cast<std::uint64_t>(OCMailboxBits::PARAM1));
+        value |= (ocMailboxCommands[static_cast<std::uint64_t>(cmd)][3] << static_cast<std::uint64_t>(OCMailboxBits::PARAM2));
+        value |= (1ull << static_cast<std::uint64_t>(OCMailboxBits::RUNBUSY));
         MSR::Write(MSRRegister::OCMAILBOX, value);
-        value |= ~(1ull << static_cast<std::uint64_t>(OCMailboxBits::BUSYBIT));
+        value |= ~(1ull << static_cast<std::uint64_t>(OCMailboxBits::RUNBUSY));
         MSR::Write(MSRRegister::OCMAILBOX, value);
     }
 } // namespace OCMailbox
