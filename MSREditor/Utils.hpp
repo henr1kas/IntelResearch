@@ -6,25 +6,22 @@
 #include "OCMailbox.hpp"
 
 namespace Utils {
-    inline double UnconvertRoundedOffset(const std::uint64_t y) noexcept {
-        const std::int64_t x = y >> 21;
-        return x <= 1024 ? static_cast<double>(x) : static_cast<double>(-(2048 - x));
+    constexpr double VoltageOffsetToDouble(const std::uint64_t offset) noexcept {
+        const std::int64_t x = offset >> 21;
+        return (x <= 1024 ? static_cast<double>(x) : static_cast<double>(-(2048 - x))) / 1.024;
     }
 
-    inline double UnconvertOffset(const std::uint64_t y) noexcept {
-        return UnconvertRoundedOffset(y) / 1.024;
+    constexpr std::uint32_t VoltageOffsetToInteger(const double offset) noexcept {
+        const double scaledValue = (offset * 1.024);
+        const std::uint32_t x = static_cast<std::uint32_t>(scaledValue + 0.5 - (scaledValue < 0.0));
+        return 0xFFE00000 & ((x & 0xFFF) << 21);
     }
 
-    inline double UnpackOffset(const std::uint64_t data) noexcept {
-        const std::uint64_t plane = data / (1ull << static_cast<std::uint64_t>(OCMailboxBits::PARAM1));
-        const std::uint64_t offset = data ^ (plane << static_cast<std::uint64_t>(OCMailboxBits::PARAM1));
-        return UnconvertOffset(offset);
+    inline std::uint64_t GetVoltageOffset(const std::uint8_t plane) noexcept {
+        return OCMailbox::Read(static_cast<OCMailboxCommand>(static_cast<std::uint8_t>(OCMailboxCommand::UNK10_0) + plane));
     }
 
-    /* wtf is bit 36? */
-    /* need add offset as data? */
-    inline double GetVoltageOffset(const std::uint8_t plane) noexcept {
-        OCMailbox::Write(static_cast<OCMailboxCommand>(plane), (1ull << 36));
-        return UnpackOffset(OCMailbox::Read(static_cast<OCMailboxCommand>(plane)));
+    inline void SetVoltageOffset(const std::uint8_t plane, const std::uint32_t val) noexcept {
+        return OCMailbox::Write(static_cast<OCMailboxCommand>(static_cast<std::uint8_t>(OCMailboxCommand::UNK10_0) + plane), val);
     }
 } // namespace Utils

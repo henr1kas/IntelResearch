@@ -44,8 +44,9 @@ int main() {
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     */
-    std::cout << Utils::GetVoltageOffset(0) << '\n';
-
+    //Utils::SetVoltageOffset(0, Utils::VoltageOffsetToInteger(-42));
+    //std::cout << Utils::VoltageOffsetToDouble(Utils::GetVoltageOffset(0));
+   
 #ifdef _WIN32
     Driver::CloseHandle();
 #endif
