@@ -10,20 +10,6 @@
 #include "Driver.hpp"
 #endif
 
-/*
-std::uint8_t ReadTemperatureOffset() noexcept {
-    return static_cast<std::uint8_t>((MSR::Read(MSRRegister::UNK1A2) & (127 << 24)) >> 24);
-}
-
-std::uint64_t GetCacheRatioOffset() noexcept {
-    return GetOCMailbox(OC_MAILBOX_RING_RATIO_OFFSET);
-}
-
-void SetCacheRatioOffset(const std::uint64_t ratio) noexcept {
-    SetOCMailbox(OC_MAILBOX_RING_RATIO_OFFSET_SET, ratio);
-}
-*/
-
 int main() {
 #ifdef _WIN32
     // TODO: load driver ourselves ?
@@ -32,21 +18,21 @@ int main() {
         return 1;
     }
 #endif
+
     /*
+    Utils::SetCacheRatioOffset(2);
     std::uint64_t prev = 0, curr = 0;
 
     while (true) {
-        curr = MSR::Read(MSRRegister::UNCORECURRENTRATIO);
-        if (curr != prev) {
-            // undervolt
-        }
+        curr = MSR::Read(MSRRegister::MSR621);
+        //if (curr != prev)
+        //    Utils::SetVoltageOffset(1, undervoltTbl[curr]);
         prev = curr;
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::cout << curr << '\n';
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
     */
-    //Utils::SetVoltageOffset(0, Utils::VoltageOffsetToInteger(-42));
-    //std::cout << Utils::VoltageOffsetToDouble(Utils::GetVoltageOffset(0));
-   
+
 #ifdef _WIN32
     Driver::CloseHandle();
 #endif
