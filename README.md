@@ -1,9 +1,11 @@
-# MSR register usermode controller
+# MSREditor
 
-This application allows user-mode control of ThrottleStop driver to perform RDMSR (Read Model-Specific Register) and WRMSR (Write Model-Specific Register) operations.
+This application allows editing Intel MSR Registers.
 
 ## Features
+- Uses signed ThrottleStop driver for Windows, test signing not needed.
+- basically nothing yet.
 
-- **RDMSR (Read Model-Specific Register)**: Read values from CPU-specific registers.
-- **WRMSR (Write Model-Specific Register)**: Write values to CPU-specific registers.
-- Test signing not needed, because ThrottleStop driver is signed.
+## TODO
+- Linux support
+- Full MSR/OC Mailbox dump by platform.

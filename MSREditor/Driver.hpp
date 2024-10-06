@@ -20,15 +20,15 @@ struct _rdmsr {
     std::uint32_t reg;
 };
 
-/* pack because byte aligns to 16 instead of 12 by default */
+/* ThrottleStop driver takes val as 2 uint32_t's low/high. Pack to fix struct size. */
 #pragma pack(push, 1)
 struct _wrmsr {
     std::uint32_t reg;
-    std::uint64_t val; // original code pass u32 low/high
+    std::uint64_t val;
 };
 #pragma pack(pop)
 
-namespace driver {
+namespace Driver {
     inline HANDLE handle = nullptr;
 
     inline bool OpenHandle() noexcept {

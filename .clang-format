@@ -4,7 +4,6 @@ AlwaysBreakTemplateDeclarations: Yes
 BreakBeforeBraces: Custom
 BreakInheritanceList: AfterColon
 ColumnLimit:     0
-IncludeBlocks:   Regroup
 IndentCaseLabels: true
 IndentWidth:     4
 KeepEmptyLinesAtTheStartOfBlocks: false

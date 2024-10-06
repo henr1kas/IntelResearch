@@ -22,7 +22,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{e548e3d3-48cb-4601-b6c3-4c0841d82678}</ProjectGuid>
-    <RootNamespace>ThrottleStop</RootNamespace>
+    <RootNamespace>MSREditor</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -131,10 +131,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ThrottleStop.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="driver.hpp" />
+    <ClInclude Include="Constants.hpp" />
+    <ClInclude Include="Driver.hpp" />
+    <ClInclude Include="MSR.hpp" />
+    <ClInclude Include="OCMailbox.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
