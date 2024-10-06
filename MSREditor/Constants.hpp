@@ -77,12 +77,12 @@ constexpr std::uint32_t msrRegisters[static_cast<std::uint64_t>(MSRRegister::SIZ
     0x774};
 
 enum class OCMailboxBits : std::uint64_t {
-    DATA = 0, // std::uint32_t
-    CMD = 32, // std::uint8_t
-    PARAM1 = 40, // std::uint8_t
-    PARAM2 = 48, // std::uint8_t
+    DATA = 0,      // std::uint32_t
+    CMD = 32,      // std::uint8_t
+    PARAM1 = 40,   // std::uint8_t
+    PARAM2 = 48,   // std::uint8_t
     RESERVED = 56, // std::uint8_t : 7
-    RUNBUSY = 63 // std::uint8_t : 1
+    RUNBUSY = 63   // std::uint8_t : 1
 };
 
 enum class OCMailboxCommand : std::uint8_t {

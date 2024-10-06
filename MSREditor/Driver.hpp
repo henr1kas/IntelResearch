@@ -59,4 +59,4 @@ namespace Driver {
 
         DeviceIoControl(handle, 0x8000644C, &arguments, sizeof(arguments), nullptr, 0, nullptr, nullptr);
     }
-} // namespace driver
+} // namespace Driver

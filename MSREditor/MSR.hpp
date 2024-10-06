@@ -1,7 +1,7 @@
 #pragma once
 
-#include <cstdint>
 #include "Constants.hpp"
+#include <cstdint>
 
 #ifdef _WIN32
 #include "Driver.hpp"
