@@ -5,19 +5,31 @@
 #include <cstdint>
 
 namespace OCMailbox {
-    inline void Write(const OCMailboxCommand cmd, std::uint64_t data) noexcept {
-        data |= (ocMailboxCommands[static_cast<std::uint64_t>(cmd)][data != 0] << static_cast<std::uint64_t>(OCMailboxBits::CMD));
-        data |= (ocMailboxCommands[static_cast<std::uint64_t>(cmd)][2] << static_cast<std::uint64_t>(OCMailboxBits::PARAM1));
-        data |= (ocMailboxCommands[static_cast<std::uint64_t>(cmd)][3] << static_cast<std::uint64_t>(OCMailboxBits::PARAM2));
-        data |= (1ull << static_cast<std::uint64_t>(OCMailboxBits::RUNBUSY));
+    struct OCMailboxFull {
+        std::uint32_t data = 0;
+        std::uint8_t commandCompletion = 0;
+        std::uint8_t param1 = 0;
+        std::uint8_t param2 = 0;
+        std::uint8_t reserved : 7 = 0;
+        std::uint8_t runBusy : 1 = 1;
+    };
 
-        // MSR::Write(MSRRegister::OCMAILBOX, data);
-        // data |= ~(1ull << static_cast<std::uint64_t>(OCMailboxBits::RUNBUSY));
-        MSR::Write(MSRRegister::OCMAILBOX, data);
+    inline void SendCommand(const OCMailboxCommand cmd, const std::uint32_t data, const bool write) noexcept {
+        OCMailboxFull full = OCMailboxFull();
+        full.data = data;
+        full.commandCompletion = ocMailboxCommands[static_cast<std::uint64_t>(cmd)][write];
+        full.param1 = ocMailboxCommands[static_cast<std::uint64_t>(cmd)][2];
+        full.param2 = ocMailboxCommands[static_cast<std::uint64_t>(cmd)][3];
+        // clear runBusy?
+        MSR::Write(MSRRegister::OCMAILBOX, reinterpret_cast<const std::uint64_t&>(full));
     }
 
-    inline std::uint64_t Read(const OCMailboxCommand cmd) noexcept {
-        Write(cmd, 0);
+    inline std::uint64_t Read(const OCMailboxCommand cmd, const std::uint32_t data = 0) noexcept {
+        SendCommand(cmd, data, false);
         return MSR::Read(MSRRegister::OCMAILBOX);
+    }
+
+    inline void Write(const OCMailboxCommand cmd, const std::uint32_t data) noexcept {
+        SendCommand(cmd, data, true);
     }
 } // namespace OCMailbox

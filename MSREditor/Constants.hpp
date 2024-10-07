@@ -76,15 +76,6 @@ constexpr std::uint32_t msrRegisters[static_cast<std::uint64_t>(MSRRegister::SIZ
     0x770,
     0x774};
 
-enum class OCMailboxBits : std::uint64_t {
-    DATA = 0,      // std::uint32_t
-    CMD = 32,      // std::uint8_t
-    PARAM1 = 40,   // std::uint8_t
-    PARAM2 = 48,   // std::uint8_t
-    RESERVED = 56, // std::uint8_t : 7
-    RUNBUSY = 63   // std::uint8_t : 1
-};
-
 enum class OCMailboxCommand : std::uint8_t {
     UNK1_0,
     UNK1_1,
@@ -119,7 +110,7 @@ enum class OCMailboxCommand : std::uint8_t {
     SIZE,
 };
 
-constexpr std::uint64_t ocMailboxCommands[static_cast<std::uint64_t>(OCMailboxCommand::SIZE)][4] = {
+constexpr std::uint8_t ocMailboxCommands[static_cast<std::uint64_t>(OCMailboxCommand::SIZE)][4] = {
     {0x1, 0x0, 0x0, 0x0},
     {0x1, 0x0, 0x1, 0x0},
     {0x1, 0x0, 0x2, 0x0},

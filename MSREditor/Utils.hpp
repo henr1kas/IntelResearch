@@ -12,8 +12,7 @@ namespace Utils {
     }
 
     constexpr std::uint32_t VoltageOffsetToInteger(const double offset) noexcept {
-        const double scaledValue = (offset * 1.024);
-        const std::uint32_t x = static_cast<std::uint32_t>(scaledValue + 0.5 - (scaledValue < 0.0));
+        const std::uint32_t x = static_cast<std::uint32_t>(offset * 1.024 + 0.5 - (offset < 0.0));
         return 0xFFE00000 & ((x & 0xFFF) << 21);
     }
 
