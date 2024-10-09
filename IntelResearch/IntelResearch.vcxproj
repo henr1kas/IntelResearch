@@ -22,7 +22,7 @@
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{e548e3d3-48cb-4601-b6c3-4c0841d82678}</ProjectGuid>
-    <RootNamespace>MSREditor</RootNamespace>
+    <RootNamespace>IntelResearch</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -135,10 +135,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.hpp" />
-    <ClInclude Include="Driver.hpp" />
     <ClInclude Include="MSR.hpp" />
     <ClInclude Include="OCMailbox.hpp" />
     <ClInclude Include="Utils.hpp" />
+    <ClInclude Include="Windows\Driver.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Windows\ThrottleStop.sys">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

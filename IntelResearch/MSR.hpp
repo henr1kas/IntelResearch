@@ -4,7 +4,7 @@
 #include <cstdint>
 
 #ifdef _WIN32
-#include "Driver.hpp"
+#include "Windows/Driver.hpp"
 #endif
 
 namespace MSR {
