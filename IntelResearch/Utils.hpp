@@ -8,38 +8,45 @@
 namespace Utils {
     constexpr std::uint32_t MILLIVOLTS_PER_VOLT = 1000;
 
-    constexpr std::uint16_t ConvertToFixedPointVolts(const std::uint16_t input) noexcept {
+    constexpr std::uint16_t ConvertToFixedPointVolts(std::uint16_t input, const bool s11 = false) noexcept {
         constexpr std::uint16_t MAX_TARGET_MV = 4095;
+        constexpr std::uint16_t MAX_OFFSET_MV = 500;
+        constexpr std::uint16_t INT16_SIGN_BIT_MASK = 0x8000;
+
+        const bool negativeCheck = (input & INT16_SIGN_BIT_MASK) && s11;
+
+        if (negativeCheck)
+            input = (~input + 1) & (INT16_SIGN_BIT_MASK - 1);
+
+        if (s11)
+            input = std::min(input, MAX_OFFSET_MV);
 
         const std::uint32_t voltage = 1024u * std::min(input, MAX_TARGET_MV);
         const std::uint32_t remainder = voltage % MILLIVOLTS_PER_VOLT;
-        return static_cast<std::uint16_t>(voltage / MILLIVOLTS_PER_VOLT) + (remainder >= 500u);
+        input = static_cast<std::uint16_t>(voltage / MILLIVOLTS_PER_VOLT) + (remainder >= 500u);
+
+        if (negativeCheck)
+            input = (~input + 1);
+
+        return input;
     }
 
-    constexpr std::int16_t ConvertOffsetToFixedPointVolts(std::int16_t input) noexcept {
-        constexpr std::int16_t MAX_OFFSET_MV = 500;
+    constexpr auto ConvertToBinaryMillivolt(std::uint16_t input, const bool s11 = false) noexcept {
+        constexpr std::uint16_t FIXED_POINT_SIGN_BIT_MASK = 0x0400;
 
-        constexpr std::uint16_t INT16_SIGN_BIT_MASK = 0x8000;
-        const bool numIsNegative = input & INT16_SIGN_BIT_MASK;
-        if (numIsNegative)
-            input = (~input + 1) & (INT16_SIGN_BIT_MASK - 1);
-        const std::int16_t voltage = ConvertToFixedPointVolts(std::min(input, MAX_OFFSET_MV));
-        return numIsNegative ? (~(voltage) + 1) : voltage;
-    }
+        const bool negativeCheck = (input & FIXED_POINT_SIGN_BIT_MASK) && s11;
 
-    constexpr std::uint16_t ConvertToBinaryMillivolt(const std::uint16_t input) noexcept {
+        if (negativeCheck)
+            input = (~input + 1) & (FIXED_POINT_SIGN_BIT_MASK - 1);
+
         const std::uint32_t voltage = MILLIVOLTS_PER_VOLT * input;
         const std::uint32_t remainder = voltage % 1024u;
-        return static_cast<std::uint16_t>(voltage / 1024u) + (remainder >= 500u);
-    }
+        input = static_cast<std::uint16_t>(voltage / 1024u) + (remainder >= 500u);
 
-    constexpr std::int16_t ConvertOffsetToBinaryMillivolt(std::int16_t input) noexcept {
-        constexpr std::uint16_t FIXED_POINT_SIGN_BIT_MASK = 0x0400;
-        const bool numIsNegative = input & FIXED_POINT_SIGN_BIT_MASK;
-        if (numIsNegative)
-            input = (~input + 1) & (FIXED_POINT_SIGN_BIT_MASK - 1);
-        const std::int16_t voltage = ConvertToBinaryMillivolt(input);
-        return numIsNegative ? (~(voltage) + 1) : voltage;
+        if (negativeCheck)
+            input = (~input + 1);
+
+        return input;
     }
 
     struct VoltageFrequencySettings {

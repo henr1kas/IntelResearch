@@ -48,9 +48,14 @@ int main() {
     }
     */
 
+    /*
     Utils::VoltageFrequencySettings a = Utils::GetVfSettings(0);
-    a.voltageOffsetS11 = Utils::ConvertOffsetToFixedPointVolts(Utils::ConvertOffsetToBinaryMillivolt(a.voltageOffsetS11));
+    // a.voltageOffsetS11 was 2045;
+    constexpr auto v = Utils::ConvertToBinaryMillivolt(2045, true);
+    constexpr auto b = Utils::ConvertToFixedPointVolts(v, true);
+    a.voltageOffsetS11 = b;
     std::cout << a.voltageOffsetS11 << '\n';
+    */
 
 #ifdef _WIN32
     Driver::CloseHandle();
