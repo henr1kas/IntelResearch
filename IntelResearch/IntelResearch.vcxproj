@@ -137,6 +137,7 @@
     <ClInclude Include="Constants.hpp" />
     <ClInclude Include="MSR.hpp" />
     <ClInclude Include="OCMailbox.hpp" />
+    <ClInclude Include="SDK\OCMailbox\VoltageFrequencySettings.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Windows\Driver.hpp" />
   </ItemGroup>
