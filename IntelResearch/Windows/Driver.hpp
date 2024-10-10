@@ -39,8 +39,8 @@ namespace Driver {
             return false;
 
         auto hService = CreateServiceA(hSCManager, driverName.data(), driverName.data(), SERVICE_START | DELETE | SERVICE_STOP, SERVICE_KERNEL_DRIVER, SERVICE_DEMAND_START, SERVICE_ERROR_IGNORE,
-            driverPath.data(),
-            nullptr, nullptr, nullptr, nullptr, nullptr);
+                                       driverPath.data(),
+                                       nullptr, nullptr, nullptr, nullptr, nullptr);
 
         if (!hService) {
             if (GetLastError() == ERROR_SERVICE_EXISTS)

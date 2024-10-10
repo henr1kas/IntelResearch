@@ -4,7 +4,6 @@
 #include "Constants.hpp"
 #include "MSR.hpp"
 #include "OCMailbox.hpp"
-#include "Utils.hpp"
 
 #ifdef _WIN32
 #include "Windows/Driver.hpp"

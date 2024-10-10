@@ -2,8 +2,6 @@
 
 #include <cstdint>
 
-/* Extracted with BET 6.5.1.371 from i7-9750HF */
-
 enum class MSRRegister : std::uint8_t {
     MSR10,
     MSR17,
@@ -29,7 +27,7 @@ enum class MSRRegister : std::uint8_t {
     MSR610,
     MSR611,
     MSR614,
-    MSR620,
+    RINGRATIOLIMIT,
     MSR621,
     MSR639,
     MSR641,
@@ -86,17 +84,12 @@ enum class OCMailboxCommand : std::uint8_t {
     UNK2_1,
     UNK4_0,
     UNK5_0,
-    VOLTAGEFREQUENCY0,
-    VOLTAGEFREQUENCY1,
-    VOLTAGEFREQUENCY2,
-    VOLTAGEFREQUENCY3,
-    VOLTAGEFREQUENCY4,
     UNK14_0,
     UNK16_0,
     UNK16_1,
     UNK16_2,
     MISCTURBOCONTROL,
-    UNK1A_0,
+    AVXRATIOOFFSET,
     UNK1C_0,
     UNK1E_1,
     UNK1E_7,
@@ -120,11 +113,6 @@ constexpr std::uint8_t ocMailboxCommands[static_cast<std::uint64_t>(OCMailboxCom
     {0x2, 0x0, 0x1, 0x0},
     {0x4, 0x0, 0x0, 0x0},
     {0x5, 0x0, 0x0, 0x0},
-    {0x10, 0x11, 0x0, 0x0},
-    {0x10, 0x11, 0x1, 0x0},
-    {0x10, 0x11, 0x2, 0x0},
-    {0x10, 0x11, 0x3, 0x0},
-    {0x10, 0x11, 0x4, 0x0},
     {0x14, 0x15, 0x0, 0x0},
     {0x16, 0x17, 0x0, 0x0},
     {0x16, 0x17, 0x1, 0x0},
