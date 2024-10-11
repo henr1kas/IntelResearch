@@ -10,8 +10,9 @@
 
 namespace MMIO {
     inline std::uint32_t pageSize = 0;
+    inline std::uint64_t pcieBase = 0;
 
-    inline void SetPageSize() noexcept {
+    inline void InitPageSize() noexcept {
 #ifdef _WIN32
         SYSTEM_INFO sysInfo;
         GetSystemInfo(&sysInfo);
@@ -21,15 +22,25 @@ namespace MMIO {
 #endif
     }
 
+    inline void InitPCIEBase() noexcept {
+#ifdef _WIN32
+        pcieBase = 0xE0000000; // TODO: how to get this on windows
+#else
+        const std::int32_t fd = open("/sys/firmware/acpi/tables/MCFG", O_RDONLY);
+        lseek(fd, 0x2C, SEEK_SET);
+        read(fd, reinterpret_cast<void*>(&pcieBase), sizeof(pcieBase));
+        close(fd);
+#endif
+}
+
     inline std::uintptr_t MapAddress(const std::uintptr_t address) noexcept {
 #ifdef _WIN32
         return Driver::MapAddress(address, pageSize);
 #else
         const std::int32_t fd = open("/dev/mem", O_RDWR | O_SYNC);
-        // const type cast?
-        const std::uint8_t* mapped = static_cast<std::uint8_t*>(mmap(nullptr, pageSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, (address & ~(pageSize - 1))));
+        const std::uintptr_t mapped = reinterpret_cast<const std::uintptr_t>(mmap(nullptr, pageSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, (address & ~(pageSize - 1))));
         close(fd);
-        return reinterpret_cast<const std::uintptr_t>(mapped + (address & (pageSize - 1)));
+        return mapped + (address & (pageSize - 1));
 #endif
     }
 
@@ -37,8 +48,7 @@ namespace MMIO {
 #ifdef _WIN32
         Driver::UnmapAddress(mapped);
 #else
-        // cast to void?, cast after arithmetic operation?, const type cast?
-        munmap(reinterpret_cast<std::uint8_t*>(mapped) - (mapped & (pageSize - 1)), pageSize);
+        munmap(reinterpret_cast<void*>(mapped - (mapped & (pageSize - 1))), pageSize);
 #endif
     }
 
@@ -66,10 +76,9 @@ namespace MMIO {
     }
 
     inline std::uintptr_t MmPciBase(const std::uint32_t bus, const std::uint32_t device, const std::uint32_t function) noexcept {
-        constexpr std::uintptr_t PcdPciExpressBaseAddress = 0xE0000000; // TODO: get this from ACPI
         if (bus > 0xFF || device > 0x1F || function > 0x7)
             return 0;
-        return PcdPciExpressBaseAddress + (static_cast<std::uintptr_t>(bus) << 20) + (static_cast<std::uintptr_t>(device) << 15) + (static_cast<std::uintptr_t>(function) << 12);
+        return pcieBase + (static_cast<std::uintptr_t>(bus) << 20) + (static_cast<std::uintptr_t>(device) << 15) + (static_cast<std::uintptr_t>(function) << 12);
     }
 
     inline std::uint32_t GetMchBar() noexcept {

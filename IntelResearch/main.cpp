@@ -11,7 +11,8 @@
 #endif
 
 int main() {
-    MMIO::SetPageSize();
+    MMIO::InitPageSize();
+    MMIO::InitPCIEBase();
 #ifdef _WIN32
     if (!Driver::OpenHandle()) {
         std::string driverPath(MAX_PATH, '\0');
