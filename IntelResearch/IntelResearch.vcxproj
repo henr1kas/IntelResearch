@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.hpp" />
+    <ClInclude Include="MMIO.hpp" />
     <ClInclude Include="MSR.hpp" />
     <ClInclude Include="OCMailbox.hpp" />
     <ClInclude Include="SDK\DomainID.hpp" />
