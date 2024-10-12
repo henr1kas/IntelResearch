@@ -7,21 +7,17 @@
 #include "../../Windows/Driver.hpp"
 #else
 #include <fcntl.h>
+#include <string>
+#include <vector>
 #endif
 
 namespace MSR {
-#ifndef _WIN32
-    const std::int32_t cpuCount = sysconf(_SC_NPROCESSORS_ONLN);
-#endif
-
     inline void Write(const MSRRegister reg, const std::uint64_t val) noexcept {
 #ifdef _WIN32
         Driver::WriteMSR(msrRegisters[static_cast<std::uint64_t>(reg)], val);
 #else
-        // TODO: precompute string vector
-        for (std::int32_t i = 0; i < cpuCount; ++i) {
-            const std::string cpu = "/dev/cpu/" + std::to_string(i) + "/msr";
-            int fd = open(cpu.data(), O_WRONLY);
+        for (const std::string& str : Library::cpuStrCache) {
+            const std::int32_t fd = open(str.data(), O_WRONLY);
             lseek(fd, msrRegisters[static_cast<std::uint64_t>(reg)], SEEK_SET);
             write(fd, &val, sizeof(val));
             close(fd);

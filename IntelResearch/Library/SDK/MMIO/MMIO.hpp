@@ -14,7 +14,7 @@ namespace MMIO {
         return Driver::MapAddress(address, Library::pageSize);
 #else
         const std::int32_t fd = open("/dev/mem", O_RDWR | O_SYNC);
-        const std::uintptr_t mapped = reinterpret_cast<const std::uintptr_t>(mmap(nullptr, Library::pageSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, (address & ~(pageSize - 1))));
+        const std::uintptr_t mapped = reinterpret_cast<const std::uintptr_t>(mmap(nullptr, Library::pageSize, PROT_READ | PROT_WRITE, MAP_SHARED, fd, (address & ~(Library::pageSize - 1))));
         close(fd);
         return mapped + (address & (Library::pageSize - 1));
 #endif

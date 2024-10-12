@@ -1,13 +1,22 @@
 #pragma once
 
 #ifdef _WIN32
-#include <vector>
 #include "Windows/Driver.hpp"
+#else
+#include <fcntl.h>
+#include <unistd.h>
+#include <string>
 #endif
+
+#include <cstdint>
+#include <vector>
 
 namespace Library {
     inline std::uint32_t pageSize = 0;
     inline std::uint64_t pcieBase = 0;
+#ifndef _WIN32
+    std::vector<std::string> cpuStrCache;
+#endif
 
     inline void InitPageSize() noexcept {
 #ifdef _WIN32
@@ -50,6 +59,11 @@ namespace Library {
 
             if (!Driver::OpenHandle())
                 return 3;
+        }
+#else
+        cpuStrCache.resize(sysconf(_SC_NPROCESSORS_ONLN));
+        for (std::size_t i = 0; i < cpuStrCache.size(); ++i) {
+            cpuStrCache[i] = "/dev/cpu/" + std::to_string(i) + "/msr";
         }
 #endif
         return 0;
