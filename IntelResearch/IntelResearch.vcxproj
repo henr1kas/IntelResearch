@@ -138,9 +138,12 @@
     <ClInclude Include="MMIO.hpp" />
     <ClInclude Include="MSR.hpp" />
     <ClInclude Include="OCMailbox.hpp" />
+    <ClInclude Include="PcodeMailbox.hpp" />
     <ClInclude Include="SDK\DomainID.hpp" />
     <ClInclude Include="SDK\OCMailbox\OCMailboxFull.hpp" />
     <ClInclude Include="SDK\OCMailbox\VoltageFrequencySettings.hpp" />
+    <ClInclude Include="SDK\PcodeMailbox\PcodeMailboxFull.hpp" />
+    <ClInclude Include="SDK\PcodeMailbox\PcodeMailboxInterface.hpp" />
     <ClInclude Include="Windows\Driver.hpp" />
   </ItemGroup>
   <ItemGroup>
