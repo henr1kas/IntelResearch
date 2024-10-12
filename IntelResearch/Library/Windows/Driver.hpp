@@ -2,6 +2,7 @@
 
 #define NOMINMAX
 #include <Windows.h>
+#include <string>
 
 /* TODO: use std::uint8_t[size] buffers in funcs instead of structs */
 #pragma pack(push, 1)

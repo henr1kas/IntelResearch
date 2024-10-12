@@ -1,4 +1,4 @@
-This software can edit Intel MSR/MMIO registers, communicate with OC/PCODE/VR mailboxes.
+This library can R/W MSR & MMIO, communicate with Intel OC/PCODE/VR mailboxes.
 
 Currently W.I.P.
 

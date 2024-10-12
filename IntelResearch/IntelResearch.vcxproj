@@ -135,20 +135,20 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.hpp" />
-    <ClInclude Include="MMIO.hpp" />
-    <ClInclude Include="MSR.hpp" />
-    <ClInclude Include="OCMailbox.hpp" />
-    <ClInclude Include="PcodeMailbox.hpp" />
-    <ClInclude Include="SDK\DomainID.hpp" />
-    <ClInclude Include="SDK\Mailbox\OC\OCMailboxFull.hpp" />
-    <ClInclude Include="SDK\Mailbox\OC\VoltageFrequencySettings.hpp" />
-    <ClInclude Include="SDK\Mailbox\Pcode\PcodeMailboxCC.hpp" />
-    <ClInclude Include="SDK\Mailbox\Pcode\PcodeMailboxFull.hpp" />
-    <ClInclude Include="SDK\Mailbox\Pcode\PcodeMailboxInterface.hpp" />
-    <ClInclude Include="Windows\Driver.hpp" />
+    <ClInclude Include="Library\Library.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\OC\OCMailbox.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\OC\OCMailboxFull.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\OC\VoltageFrequencySettings.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\Pcode\PcodeMailbox.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\Pcode\PcodeMailboxCC.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\Pcode\PcodeMailboxFull.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\Pcode\PcodeMailboxInterface.hpp" />
+    <ClInclude Include="Library\SDK\MMIO\MMIO.hpp" />
+    <ClInclude Include="Library\SDK\MSR\MSR.hpp" />
+    <ClInclude Include="Library\Windows\Driver.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="Windows\ThrottleStop.sys">
+    <CopyFileToFolders Include="Library\Windows\Driver.sys">
       <FileType>Document</FileType>
     </CopyFileToFolders>
   </ItemGroup>

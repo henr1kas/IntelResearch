@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Constants.hpp"
+#include "../../../Constants.hpp"
 #include <cstdint>
 
 #ifdef _WIN32
-#include "Windows/Driver.hpp"
+#include "../../Windows/Driver.hpp"
 #else
 #include <fcntl.h>
 #endif
@@ -18,6 +18,7 @@ namespace MSR {
 #ifdef _WIN32
         Driver::WriteMSR(msrRegisters[static_cast<std::uint64_t>(reg)], val);
 #else
+        // TODO: precompute string vector
         for (std::int32_t i = 0; i < cpuCount; ++i) {
             const std::string cpu = "/dev/cpu/" + std::to_string(i) + "/msr";
             int fd = open(cpu.data(), O_WRONLY);
@@ -41,7 +42,7 @@ namespace MSR {
 #endif
     }
 
-    /* move these idk where */
+    /* TODO: move this to Library/MSR/Registers/[regname].hpp? */
     constexpr std::uint64_t V_MSR_RING_RATIO_LIMIT_MASK = 0x7F;
     /*
     inline std::uint8_t ReadTemperatureOffset() noexcept {

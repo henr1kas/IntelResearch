@@ -1,13 +1,14 @@
 #pragma once
 
 #include "Constants.hpp"
-#include "MSR.hpp"
-#include "SDK/DomainID.hpp"
-#include "SDK/Mailbox/OC/OCMailboxFull.hpp"
-#include "SDK/Mailbox/OC/VoltageFrequencySettings.hpp"
+#include "../../MSR/MSR.hpp"
+#include "../../DomainID.hpp"
+#include "OCMailboxFull.hpp"
+#include "VoltageFrequencySettings.hpp"
 #include <cstdint>
 
 namespace OCMailbox {
+    /* TODO: clean impl, is status read possible? */
     inline OCMailboxFull SendCommand(const OCMailboxFull full) noexcept {
         MSR::Write(MSRRegister::OCMAILBOX, *reinterpret_cast<const std::uint64_t*>(&full));
         const std::uint64_t msrValue = MSR::Read(MSRRegister::OCMAILBOX);
@@ -21,7 +22,6 @@ namespace OCMailbox {
         full.param1 = ocMailboxCommands[static_cast<std::uint64_t>(cmd)][2];
         full.param2 = ocMailboxCommands[static_cast<std::uint64_t>(cmd)][3];
         full.runBusy = 1;
-        // clear runBusy?
         return SendCommand(full);
     }
 
@@ -33,6 +33,7 @@ namespace OCMailbox {
         return SendCommandWrapper(cmd, data, true);
     }
 
+    /* TODO: move these to Library/Mailbox/OC/Commands/[cmdname].hpp */
     inline VoltageFrequencySettings GetVfSettings(const DomainID domainId) noexcept {
         OCMailboxFull full = OCMailboxFull();
         full.commandCompletion = 0x10;
@@ -51,7 +52,6 @@ namespace OCMailbox {
         return SendCommand(full);
     }
 
-    /* move idk where */
     constexpr std::uint32_t MISC_TURBO_RING_DOWNBIN_MASK = 0x00000002;
     constexpr std::uint32_t MISC_TURBO_RING_DOWNBIN_OFFSET = 1;
 

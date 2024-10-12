@@ -1,5 +1,7 @@
 #pragma once
 
+// todo: move this to library after we find proper names.
+
 #include <cstdint>
 
 enum class MSRRegister : std::uint8_t {

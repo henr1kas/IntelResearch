@@ -1,8 +1,8 @@
 #pragma once
 
-#include "MMIO.hpp"
-#include "SDK/Mailbox/Pcode/PcodeMailboxCC.hpp"
-#include "SDK/Mailbox/Pcode/PcodeMailboxFull.hpp"
+#include "../../MMIO/MMIO.hpp"
+#include "PcodeMailboxCC.hpp"
+#include "PcodeMailboxFull.hpp"
 
 namespace PcodeMailbox {
     constexpr std::uintptr_t PCODE_MAILBOX_DATA_OFFSET = 0x5DA0;
