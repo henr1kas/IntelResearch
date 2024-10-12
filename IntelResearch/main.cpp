@@ -5,6 +5,7 @@
 #include "MSR.hpp"
 #include "OCMailbox.hpp"
 #include "MMIO.hpp"
+#include "PcodeMailbox.hpp"
 
 #ifdef _WIN32
 #include "Windows/Driver.hpp"

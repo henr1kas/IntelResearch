@@ -186,7 +186,7 @@ namespace Driver {
     void WriteMMIO(const std::uintptr_t address, const T val) noexcept {
         static_assert(sizeof(T) == 1 || sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8, "Driver::WriteMMIO: sizeof(T) must be 1/2/4/8 bytes");
         _WriteMMIO<T> arguments = {0};
-        arguments.addressS = address;
+        arguments.address = address;
         arguments.val = val;
         DeviceIoControl(handle, 0x8000649C, &arguments, sizeof(arguments), nullptr, 0, nullptr, nullptr);
     }

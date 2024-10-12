@@ -3,8 +3,8 @@
 #include "Constants.hpp"
 #include "MSR.hpp"
 #include "SDK/DomainID.hpp"
-#include "SDK/OCMailbox/OCMailboxFull.hpp"
-#include "SDK/OCMailbox/VoltageFrequencySettings.hpp"
+#include "SDK/Mailbox/OC/OCMailboxFull.hpp"
+#include "SDK/Mailbox/OC/VoltageFrequencySettings.hpp"
 #include <cstdint>
 
 namespace OCMailbox {
