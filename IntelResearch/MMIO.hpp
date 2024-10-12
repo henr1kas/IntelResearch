@@ -4,6 +4,7 @@
 
 #ifdef _WIN32
 #include "Windows/Driver.hpp"
+#include <vector>
 #else
 #include <sys/mman.h>
 #endif
@@ -22,9 +23,11 @@ namespace MMIO {
 #endif
     }
 
-    inline void InitPCIEBase() noexcept {
+    inline void InitPCIeBase() noexcept {
 #ifdef _WIN32
-        pcieBase = 0xE0000000; // TODO: how to get this on windows
+        std::vector<std::uint8_t> table(GetSystemFirmwareTable('ACPI', 'GFCM', nullptr, 0));
+        const DWORD tableSize = GetSystemFirmwareTable('ACPI', 'GFCM', table.data(), static_cast<const std::uint32_t>(table.size()));
+        pcieBase = *reinterpret_cast<const std::uint64_t*>(&table[0x2C]);
 #else
         const std::int32_t fd = open("/sys/firmware/acpi/tables/MCFG", O_RDONLY);
         lseek(fd, 0x2C, SEEK_SET);

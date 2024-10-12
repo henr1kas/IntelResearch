@@ -12,7 +12,7 @@
 
 int main() {
     MMIO::InitPageSize();
-    MMIO::InitPCIEBase();
+    MMIO::InitPCIeBase();
 #ifdef _WIN32
     if (!Driver::OpenHandle()) {
         std::string driverPath(MAX_PATH, '\0');

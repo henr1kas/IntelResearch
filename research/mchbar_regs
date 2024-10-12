@@ -5,7 +5,10 @@ KabylakeSiliconPkg/Cpu/Include/CpuPowerMgmt.h
 KabylakeSiliconPkg/SystemAgent/MemoryInit/Library/Private/PeiMemoryInitLib/Source/Include/MrcRegisters/MrcMcRegister5xxx.h
 KabylakeSiliconPkg/Cpu/Include/Library/CpuMailboxLib.h
 
-reg(mchbar + offset, regname):
+Official docs:
+https://www.intel.com/content/www/us/en/products/docs/processors/core/core-technical-resources.html
+
+reg(mchbar + offset, regname, size):
 0x5000 R_SA_MCHBAR_MAD_INTER_CHANNEL_OFFSET
 0x5004 R_SA_MCHBAR_MAD_INTRA_CH0_OFFSET
 0x5008 R_SA_MCHBAR_MAD_INTRA_CH1_OFFSET
@@ -13,9 +16,9 @@ reg(mchbar + offset, regname):
 0x5010 R_SA_MCHBAR_MAD_DIMM_CH1_OFFSET
 0x5024 R_SA_MCHBAR_CHANNEL_HASH_OFFSET
 0x50FC R_SA_MCHBAR_MC_LOCK_OFFSET
-0x5400 R_SA_MCHBAR_VTD1_OFFSET
+0x5400 R_SA_MCHBAR_VTD1_OFFSET/GFXVTBAR_0_0_0_MCHBAR_NCU 8
 0x5408 R_SA_MCHBAR_EDRAMBAR_OFFSET
-0x5410 R_SA_MCHBAR_VTD2_OFFSET
+0x5410 R_SA_MCHBAR_VTD2_OFFSET/VTDPVC0BAR_0_0_0_MCHBAR_NCU 8
 0x5418 # unknown(specific routing algorithm)
 0x5420 R_SA_MCHBAR_GDXCBAR_OFFSET
 0x5428 R_SA_MCHBAR_NCDECS_CR_SCRATCHPAD_NCU_0_REG
