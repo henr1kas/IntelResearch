@@ -3,6 +3,12 @@
 #include <iostream>
 //#include <thread>
 
+/*
+inline std::uint8_t ReadTemperatureOffset() noexcept {
+    return static_cast<std::uint8_t>((MSR::Read(MSRRegister::MSR1A2) & (127 << 24)) >> 24);
+}
+*/
+
 int main() {
     Library::Init();
 

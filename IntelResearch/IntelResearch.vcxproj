@@ -145,6 +145,10 @@
     <ClInclude Include="Library\SDK\Mailbox\Pcode\PcodeMailboxInterface.hpp" />
     <ClInclude Include="Library\SDK\MMIO\MMIO.hpp" />
     <ClInclude Include="Library\SDK\MSR\MSR.hpp" />
+    <ClInclude Include="Library\SDK\MSR\Register\PackagePowerLimit.hpp" />
+    <ClInclude Include="Library\SDK\MSR\Register\PackagePowerSKU.hpp" />
+    <ClInclude Include="Library\SDK\MSR\Register\PackagePowerSKUUnit.hpp" />
+    <ClInclude Include="Library\SDK\MSR\Register\RingRatioLimit.hpp" />
     <ClInclude Include="Library\Windows\Driver.hpp" />
   </ItemGroup>
   <ItemGroup>

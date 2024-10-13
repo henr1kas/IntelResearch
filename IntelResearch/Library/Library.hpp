@@ -89,3 +89,7 @@ namespace Library {
 #include "SDK/Mailbox/OC/VoltageFrequencySettings.hpp"
 #include "SDK/MMIO/MMIO.hpp"
 #include "SDK/MSR/MSR.hpp"
+#include "SDK/MSR/Register/PackagePowerLimit.hpp"
+#include "SDK/MSR/Register/PackagePowerSKU.hpp"
+#include "SDK/MSR/Register/PackagePowerSKUUnit.hpp"
+#include "SDK/MSR/Register/RingRatioLimit.hpp"

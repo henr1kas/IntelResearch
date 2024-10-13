@@ -10,8 +10,9 @@
 namespace OCMailbox {
     /* TODO: clean impl, is status read possible? */
     inline OCMailboxFull SendCommand(const OCMailboxFull full) noexcept {
-        MSR::Write(MSRRegister::OCMAILBOX, *reinterpret_cast<const std::uint64_t*>(&full));
-        const std::uint64_t msrValue = MSR::Read(MSRRegister::OCMAILBOX);
+        constexpr std::uint32_t MSR_OC_MAILBOX = 0x150;
+        MSR::Write(MSR_OC_MAILBOX, *reinterpret_cast<const std::uint64_t*>(&full));
+        const std::uint64_t msrValue = MSR::Read(MSR_OC_MAILBOX);
         return *reinterpret_cast<const OCMailboxFull*>(&msrValue);
     }
 

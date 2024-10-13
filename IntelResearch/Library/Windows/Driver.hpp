@@ -167,14 +167,13 @@ namespace Driver {
         DeviceIoControl(handle, 0x80006460, &address, sizeof(address), nullptr, 0, nullptr, nullptr);
     }
 
-    /* returns 1? maybe some counter. related to MapMemory */
+    /* returns 1, maybe some counter && related to MapAddress */
     inline std::uint32_t unk6494() noexcept {
         std::uint32_t val = 0;
         DeviceIoControl(handle, 0x80006494, nullptr, 0, &val, sizeof(val), nullptr, nullptr);
         return val;
     }
 
-    /* untested */
     template<typename T>
     T ReadMMIO(std::uintptr_t address) noexcept {
         static_assert(sizeof(T) == 1 || sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8, "Driver::ReadMMIO: sizeof(T) must be 1/2/4/8 bytes");
@@ -183,6 +182,7 @@ namespace Driver {
         return val;
     }
 
+    /* untested */
     template<typename T>
     void WriteMMIO(const std::uintptr_t address, const T val) noexcept {
         static_assert(sizeof(T) == 1 || sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8, "Driver::WriteMMIO: sizeof(T) must be 1/2/4/8 bytes");
