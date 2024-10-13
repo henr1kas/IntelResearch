@@ -13,11 +13,10 @@ struct PackagePowerSKU {
     static constexpr std::uint32_t MSR_PACKAGE_POWER_SKU = 0x614;
 
     static PackagePowerSKU Read() noexcept {
-        const std::uint64_t packagePowerSKU = MSR::Read(MSR_PACKAGE_POWER_SKU);
-        return *reinterpret_cast<const PackagePowerSKU*>(&packagePowerSKU);
+        return MSR::Read<PackagePowerSKU>(MSR_PACKAGE_POWER_SKU);
     }
 
     static void Write(const PackagePowerSKU packagePowerSKU) noexcept {
-        MSR::Write(MSR_PACKAGE_POWER_SKU, *reinterpret_cast<const std::uint64_t*>(&packagePowerSKU));
+        MSR::Write(MSR_PACKAGE_POWER_SKU, packagePowerSKU);
     }
 };

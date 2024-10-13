@@ -20,11 +20,10 @@ struct PackagePowerLimit {
     static constexpr std::uint32_t MSR_PACKAGE_POWER_LIMIT = 0x610;
 
     static PackagePowerLimit Read() noexcept {
-        const std::uint64_t packagePowerLimit = MSR::Read(MSR_PACKAGE_POWER_LIMIT);
-        return *reinterpret_cast<const PackagePowerLimit*>(&packagePowerLimit);
+        return MSR::Read<PackagePowerLimit>(MSR_PACKAGE_POWER_LIMIT);
     }
 
     static void Write(const PackagePowerLimit packagePowerLimit) noexcept {
-        MSR::Write(MSR_PACKAGE_POWER_LIMIT, *reinterpret_cast<const std::uint64_t*>(&packagePowerLimit));
+        MSR::Write(MSR_PACKAGE_POWER_LIMIT, packagePowerLimit);
     }
 };

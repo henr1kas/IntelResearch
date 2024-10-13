@@ -136,9 +136,13 @@
   <ItemGroup>
     <ClInclude Include="Constants.hpp" />
     <ClInclude Include="Library\Library.hpp" />
+    <ClInclude Include="Library\SDK\DomainID.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\OC\Command\AvxRatioOffset.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\OC\Command\MiscTurboControl.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\OC\Command\VoltageFrequencySettings.hpp" />
     <ClInclude Include="Library\SDK\Mailbox\OC\OCMailbox.hpp" />
     <ClInclude Include="Library\SDK\Mailbox\OC\OCMailboxFull.hpp" />
-    <ClInclude Include="Library\SDK\Mailbox\OC\VoltageFrequencySettings.hpp" />
+    <ClInclude Include="Library\SDK\Mailbox\OC\OCMailboxInterface.hpp" />
     <ClInclude Include="Library\SDK\Mailbox\Pcode\PcodeMailbox.hpp" />
     <ClInclude Include="Library\SDK\Mailbox\Pcode\PcodeMailboxCC.hpp" />
     <ClInclude Include="Library\SDK\Mailbox\Pcode\PcodeMailboxFull.hpp" />

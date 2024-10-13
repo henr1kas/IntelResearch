@@ -11,7 +11,9 @@
 #endif
 
 namespace MSR {
-    inline void Write(const std::uint32_t reg, const std::uint64_t val) noexcept {
+    template<typename T>
+    void Write(const std::uint32_t reg, const T val) noexcept {
+        static_assert(sizeof(T) == 8, "MSR::Write: sizeof(T) must be 8 bytes");
 #ifdef _WIN32
         Driver::WriteMSR(reg, val);
 #else
@@ -24,9 +26,11 @@ namespace MSR {
 #endif
     }
 
-    inline std::uint64_t Read(const std::uint32_t reg) noexcept {
+    template<typename T = std::uint64_t>
+    T Read(const std::uint32_t reg) noexcept {
+        static_assert(sizeof(T) == 8, "MSR::Read: sizeof(T) must be 8 bytes");
 #ifdef _WIN32
-        return Driver::ReadMSR(reg);
+        return Driver::ReadMSR<T>(reg);
 #else
         std::uint64_t val;
         int fd = open("/dev/cpu/0/msr", O_RDONLY);

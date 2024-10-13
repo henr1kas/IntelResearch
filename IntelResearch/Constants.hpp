@@ -1,6 +1,6 @@
 #pragma once
 
-// todo: move this to library after we find proper names.
+// temporary file with list of things to impl
 
 #include <cstdint>
 
@@ -80,8 +80,6 @@ enum class OCMailboxCommand : std::uint8_t {
     UNK16_0,
     UNK16_1,
     UNK16_2,
-    MISCTURBOCONTROL,
-    AVXRATIOOFFSET,
     UNK1C_0,
     UNK1E_1,
     UNK1E_7,
@@ -109,8 +107,6 @@ constexpr std::uint8_t ocMailboxCommands[static_cast<std::uint64_t>(OCMailboxCom
     {0x16, 0x17, 0x0, 0x0},
     {0x16, 0x17, 0x1, 0x0},
     {0x16, 0x17, 0x2, 0x0},
-    {0x18, 0x19, 0x0, 0x0},
-    {0x1A, 0x1B, 0x0, 0x0},
     {0x1C, 0x1D, 0x0, 0x0},
     {0x1E, 0x1F, 0x1, 0x0},
     {0x1E, 0x1F, 0x7, 0x0},

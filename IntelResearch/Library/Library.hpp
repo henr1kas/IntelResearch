@@ -84,9 +84,16 @@ namespace Library {
 } // namespace Library
 
 #include "SDK/DomainID.hpp"
+#include "SDK/Mailbox/OC/Command/AvxRatioOffset.hpp"
+#include "SDK/Mailbox/OC/Command/MiscTurboControl.hpp"
+#include "SDK/Mailbox/OC/Command/VoltageFrequencySettings.hpp"
 #include "SDK/Mailbox/OC/OCMailbox.hpp"
 #include "SDK/Mailbox/OC/OCMailboxFull.hpp"
-#include "SDK/Mailbox/OC/VoltageFrequencySettings.hpp"
+#include "SDK/Mailbox/OC/OCMailboxInterface.hpp"
+#include "SDK/Mailbox/Pcode/PcodeMailbox.hpp"
+#include "SDK/Mailbox/Pcode/PcodeMailboxCC.hpp"
+#include "SDK/Mailbox/Pcode/PcodeMailboxFull.hpp"
+#include "SDK/Mailbox/Pcode/PcodeMailboxInterface.hpp"
 #include "SDK/MMIO/MMIO.hpp"
 #include "SDK/MSR/MSR.hpp"
 #include "SDK/MSR/Register/PackagePowerLimit.hpp"

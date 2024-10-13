@@ -1,12 +1,10 @@
 #pragma once
 
 #include <cstdint>
+#include "OCMailboxInterface.hpp"
 
+template<typename T = std::uint32_t>
 struct OCMailboxFull {
-    std::uint32_t data = 0;
-    std::uint8_t commandCompletion = 0;
-    std::uint8_t param1 = 0;
-    std::uint8_t param2 = 0;
-    std::uint8_t reserved : 7 = 0;
-    std::uint8_t runBusy : 1 = 0;
+    T data{};
+    OCMailboxInterface Interface;
 };

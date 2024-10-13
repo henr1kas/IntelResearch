@@ -14,9 +14,10 @@ struct _WritePort {
 struct _ReadMSR {
     std::uint32_t reg;
 };
+template<typename T>
 struct _WriteMSR {
     std::uint32_t reg;
-    std::uint64_t val;
+    T val;
 };
 struct _MapMemory {
     std::uint64_t address;
@@ -137,16 +138,20 @@ namespace Driver {
         DeviceIoControl(handle, 0x80006434, &arguments, sizeof(arguments), nullptr, nullptr, nullptr, nullptr);
     }
 
-    inline std::uint64_t ReadMSR(const std::uint32_t reg) noexcept {
-        std::uint64_t val = 0;
+    template<typename T = std::uint64_t>
+    T ReadMSR(const std::uint32_t reg) noexcept {
+        static_assert(sizeof(T) == 8, "Driver::ReadMSR: sizeof(T) must be 8 bytes");
+        T val{};
         _ReadMSR arguments = {0};
         arguments.reg = reg;
         DeviceIoControl(handle, 0x80006448, &arguments, sizeof(arguments), &val, sizeof(val), nullptr, nullptr);
         return val;
     }
 
-    inline void WriteMSR(const std::uint32_t reg, const std::uint64_t val) noexcept {
-        _WriteMSR arguments = {0};
+    template<typename T>
+    void WriteMSR(const std::uint32_t reg, const T val) noexcept {
+        static_assert(sizeof(T) == 8, "Driver::WriteMSR: sizeof(T) must be 8 bytes");
+        _WriteMSR<T> arguments = {0};
         arguments.reg = reg;
         arguments.val = val;
         DeviceIoControl(handle, 0x8000644C, &arguments, sizeof(arguments), nullptr, 0, nullptr, nullptr);
