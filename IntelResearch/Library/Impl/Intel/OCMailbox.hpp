@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../MSR/MSR.hpp"
-#include "../../DomainID.hpp"
-#include "OCMailboxFull.hpp"
+#include "../MSR.hpp"
+#include "../../SDK/Intel/DomainID.hpp"
+#include "../../SDK/Intel/Mailbox/OC/OCMailboxFull.hpp"
 #include <cstdint>
 
 namespace OCMailbox {

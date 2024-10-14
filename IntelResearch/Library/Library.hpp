@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef _WIN32
-#include "Windows/Driver.hpp"
+#include "Impl/Windows/Driver.hpp"
 #else
 #include <fcntl.h>
 #include <unistd.h>
@@ -83,20 +83,21 @@ namespace Library {
     }
 } // namespace Library
 
-#include "SDK/DomainID.hpp"
-#include "SDK/Mailbox/OC/Command/AvxRatioOffset.hpp"
-#include "SDK/Mailbox/OC/Command/MiscTurboControl.hpp"
-#include "SDK/Mailbox/OC/Command/VoltageFrequencySettings.hpp"
-#include "SDK/Mailbox/OC/OCMailbox.hpp"
-#include "SDK/Mailbox/OC/OCMailboxFull.hpp"
-#include "SDK/Mailbox/OC/OCMailboxInterface.hpp"
-#include "SDK/Mailbox/Pcode/PcodeMailbox.hpp"
-#include "SDK/Mailbox/Pcode/PcodeMailboxCC.hpp"
-#include "SDK/Mailbox/Pcode/PcodeMailboxFull.hpp"
-#include "SDK/Mailbox/Pcode/PcodeMailboxInterface.hpp"
-#include "SDK/MMIO/MMIO.hpp"
-#include "SDK/MSR/MSR.hpp"
-#include "SDK/MSR/Register/PackagePowerLimit.hpp"
-#include "SDK/MSR/Register/PackagePowerSKU.hpp"
-#include "SDK/MSR/Register/PackagePowerSKUUnit.hpp"
-#include "SDK/MSR/Register/RingRatioLimit.hpp"
+#include "Impl/Intel/OCMailbox.hpp"
+#include "Impl/Intel/PcodeMailbox.hpp"
+#include "Impl/MMIO.hpp"
+#include "Impl/MSR.hpp"
+#include "SDK/Intel/DomainID.hpp"
+#include "SDK/Intel/Mailbox/OC/Command/AvxRatioOffset.hpp"
+#include "SDK/Intel/Mailbox/OC/Command/MiscTurboControl.hpp"
+#include "SDK/Intel/Mailbox/OC/Command/VoltageFrequencySettings.hpp"
+#include "SDK/Intel/Mailbox/OC/OCMailboxFull.hpp"
+#include "SDK/Intel/Mailbox/OC/OCMailboxInterface.hpp"
+#include "SDK/Intel/Mailbox/Pcode/PcodeMailboxCC.hpp"
+#include "SDK/Intel/Mailbox/Pcode/PcodeMailboxFull.hpp"
+#include "SDK/Intel/Mailbox/Pcode/PcodeMailboxInterface.hpp"
+#include "SDK/Intel/MMIO/MchBar.hpp"
+#include "SDK/Intel/MSR/Register/PackagePowerLimit.hpp"
+#include "SDK/Intel/MSR/Register/PackagePowerSKU.hpp"
+#include "SDK/Intel/MSR/Register/PackagePowerSKUUnit.hpp"
+#include "SDK/Intel/MSR/Register/RingRatioLimit.hpp"

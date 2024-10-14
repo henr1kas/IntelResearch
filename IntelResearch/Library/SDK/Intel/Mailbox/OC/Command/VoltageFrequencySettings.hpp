@@ -3,7 +3,7 @@
 #include <cstdint>
 #include "../../../DomainID.hpp"
 #include "../OCMailboxFull.hpp"
-#include "../OCMailbox.hpp"
+#include "../../../../../Impl/Intel/OCMailbox.hpp"
 
 struct VoltageFrequencySettings {
     std::uint32_t maxOcRatio : 8 = 0;

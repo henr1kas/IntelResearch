@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef _WIN32
-#include "../../Windows/Driver.hpp"
+#include "Windows/Driver.hpp"
 #else
 #include <sys/mman.h>
 #endif
@@ -49,11 +49,5 @@ namespace MMIO {
         *reinterpret_cast<const volatile T*>(mapped) = value;
         UnmapAddress(mapped);
 #endif
-    }
-
-    /* TODO: move this */
-    inline std::uint32_t GetMchBar() noexcept {
-        constexpr std::uintptr_t MCHBAR_OFFSET = 0x48;
-        return MMIO::Read<std::uint32_t>(Library::MmPciBase(0, 0, 0) + MCHBAR_OFFSET) & ~1;
     }
 } // namespace MMIO

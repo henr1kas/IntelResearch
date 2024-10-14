@@ -3,7 +3,7 @@
 #include <cstdint>
 
 #ifdef _WIN32
-#include "../../Windows/Driver.hpp"
+#include "windows/Driver.hpp"
 #else
 #include <fcntl.h>
 #include <string>

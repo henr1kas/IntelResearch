@@ -25,7 +25,7 @@ int main() {
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
     */
-    const std::uint32_t mchBar = MMIO::GetMchBar();
+    const std::uint32_t mchBar = MchBar::Get();
     const std::uint32_t pl2 = MMIO::Read<std::uint32_t>(mchBar + 0x59A0 + 0x4);
     std::cout << "Your MMIO PL2 is:" << (pl2 & 0x7FFF) / 8 << '\n';
     Library::Deinit();

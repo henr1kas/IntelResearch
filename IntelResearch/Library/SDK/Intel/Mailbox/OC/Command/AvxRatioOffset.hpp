@@ -1,7 +1,6 @@
 #pragma once
 
-#include "../OCMailbox.hpp"
-#include "../OCMailboxFull.hpp"
+#include "../../../../../Impl/Intel/OCMailbox.hpp"
 #include <cstdint>
 
 struct AvxRatioOffset {
