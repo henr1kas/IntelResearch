@@ -135,26 +135,26 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.hpp" />
-    <ClInclude Include="Library\Impl\Intel\OCMailbox.hpp" />
-    <ClInclude Include="Library\Impl\Intel\PcodeMailbox.hpp" />
     <ClInclude Include="Library\Impl\MMIO.hpp" />
     <ClInclude Include="Library\Impl\MSR.hpp" />
     <ClInclude Include="Library\Impl\Windows\Driver.hpp" />
+    <ClInclude Include="Library\Intel\OCMailbox.hpp" />
+    <ClInclude Include="Library\Intel\PcodeMailbox.hpp" />
+    <ClInclude Include="Library\Intel\SDK\DomainID.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\AvxRatioOffset.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\MiscTurboControl.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\VoltageFrequencySettings.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\OC\OCMailboxFull.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\OC\OCMailboxInterface.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\Pcode\PcodeMailboxCC.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\Pcode\PcodeMailboxFull.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\Pcode\PcodeMailboxInterface.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MMIO\MchBar.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerLimit.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerSKU.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerSKUUnit.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\RingRatioLimit.hpp" />
     <ClInclude Include="Library\Library.hpp" />
-    <ClInclude Include="Library\SDK\Intel\DomainID.hpp" />
-    <ClInclude Include="Library\SDK\Intel\Mailbox\OC\Command\AvxRatioOffset.hpp" />
-    <ClInclude Include="Library\SDK\Intel\Mailbox\OC\Command\MiscTurboControl.hpp" />
-    <ClInclude Include="Library\SDK\Intel\Mailbox\OC\Command\VoltageFrequencySettings.hpp" />
-    <ClInclude Include="Library\SDK\Intel\Mailbox\OC\OCMailboxFull.hpp" />
-    <ClInclude Include="Library\SDK\Intel\Mailbox\OC\OCMailboxInterface.hpp" />
-    <ClInclude Include="Library\SDK\Intel\Mailbox\Pcode\PcodeMailboxCC.hpp" />
-    <ClInclude Include="Library\SDK\Intel\Mailbox\Pcode\PcodeMailboxFull.hpp" />
-    <ClInclude Include="Library\SDK\Intel\Mailbox\Pcode\PcodeMailboxInterface.hpp" />
-    <ClInclude Include="Library\SDK\Intel\MMIO\MchBar.hpp" />
-    <ClInclude Include="Library\SDK\Intel\MSR\Register\PackagePowerLimit.hpp" />
-    <ClInclude Include="Library\SDK\Intel\MSR\Register\PackagePowerSKU.hpp" />
-    <ClInclude Include="Library\SDK\Intel\MSR\Register\PackagePowerSKUUnit.hpp" />
-    <ClInclude Include="Library\SDK\Intel\MSR\Register\RingRatioLimit.hpp" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="Library\Impl\Windows\Driver.sys">

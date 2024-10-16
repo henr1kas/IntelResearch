@@ -40,4 +40,15 @@ namespace MSR {
         return val;
 #endif
     }
+
+    template<typename T, std::uint32_t reg>
+    struct Register {
+        static T Read() noexcept {
+            return MSR::Read<T>(reg);
+        }
+
+        static void Write(const T value) noexcept {
+            MSR::Write(reg, value);
+        }
+    };
 } // namespace MSR
