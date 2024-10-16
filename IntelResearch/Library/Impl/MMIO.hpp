@@ -46,7 +46,7 @@ namespace MMIO {
         Driver::WriteMMIO<T>(address, value);
 #else
         const std::uintptr_t mapped = MapAddress(address);
-        *reinterpret_cast<const volatile T*>(mapped) = value;
+        *reinterpret_cast<volatile T*>(mapped) = value;
         UnmapAddress(mapped);
 #endif
     }
