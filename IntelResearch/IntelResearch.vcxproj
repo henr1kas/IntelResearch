@@ -146,6 +146,8 @@
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\VoltageFrequencySettings.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\OCMailboxFull.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\OCMailboxInterface.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\Pcode\Command\VRIccMax.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\Pcode\Command\VRTopologyData.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\Pcode\PcodeMailboxCC.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\Pcode\PcodeMailboxFull.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\Pcode\PcodeMailboxInterface.hpp" />
@@ -154,6 +156,7 @@
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerSKU.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerSKUUnit.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\RingRatioLimit.hpp" />
+    <ClInclude Include="Library\Intel\SDK\SKLVRDomain.hpp" />
     <ClInclude Include="Library\Library.hpp" />
   </ItemGroup>
   <ItemGroup>

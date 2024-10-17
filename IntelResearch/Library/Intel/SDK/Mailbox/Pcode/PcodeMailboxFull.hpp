@@ -1,9 +1,10 @@
 #pragma once
 
-#include <cstdint>
 #include "PcodeMailboxInterface.hpp"
+#include <cstdint>
 
+template<typename T = std::uint32_t>
 struct PcodeMailboxFull {
     PcodeMailboxInterface Interface;
-    std::uint32_t data = 0;
+    T data{};
 };

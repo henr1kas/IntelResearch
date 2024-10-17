@@ -1,7 +1,6 @@
 #include "Library/Library.hpp"
 
 #include <iostream>
-//#include <thread>
 
 /*
 inline std::uint8_t ReadTemperatureOffset() noexcept {
@@ -29,7 +28,20 @@ int main() {
         VoltageFrequencySettings::Write(voltageFrequencySettings, i);
     }
 
-    /* TODO: MSR/MMIO PL[1-3], IccMax */ 
+    /* Set IccMax for all VR domains to 255.75A in MSR/MMIO (MMIO auto update based on MSR val) */
+    /* TODO: make struct for this. IccMax is 10 bit? */
+    /* VR Addresses for i7-9750hf 0 = IA (core/cache), 1 gt[s/us], 2 = SA */
+    OCMailboxFull<std::uint32_t> wr;
+    wr.data = 1023;
+    wr.Interface.Fields.commandCompletion = 0x17;
+    wr.Interface.Fields.param1 = 0x0;
+    OCMailbox::SendCommand(wr);
+    wr.Interface.Fields.param1 = 0x1;
+    OCMailbox::SendCommand(wr);
+    wr.Interface.Fields.param1 = 0x2;
+    OCMailbox::SendCommand(wr);
+
+    /* TODO: MSR/MMIO PL[1-3] */
 
     Library::Deinit();
     return 0;

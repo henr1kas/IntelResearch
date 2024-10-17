@@ -93,6 +93,8 @@ namespace Library {
 #include "Intel/SDK/Mailbox/OC/Command/VoltageFrequencySettings.hpp"
 #include "Intel/SDK/Mailbox/OC/OCMailboxFull.hpp"
 #include "Intel/SDK/Mailbox/OC/OCMailboxInterface.hpp"
+#include "Intel/SDK/Mailbox/Pcode/Command/VRIccMax.hpp"
+#include "Intel/SDK/Mailbox/Pcode/Command/VRTopologyData.hpp"
 #include "Intel/SDK/Mailbox/Pcode/PcodeMailboxCC.hpp"
 #include "Intel/SDK/Mailbox/Pcode/PcodeMailboxFull.hpp"
 #include "Intel/SDK/Mailbox/Pcode/PcodeMailboxInterface.hpp"
@@ -101,3 +103,4 @@ namespace Library {
 #include "Intel/SDK/MSR/Register/PackagePowerSKU.hpp"
 #include "Intel/SDK/MSR/Register/PackagePowerSKUUnit.hpp"
 #include "Intel/SDK/MSR/Register/RingRatioLimit.hpp"
+#include "Intel/SDK/SKLVRDomain.hpp"
