@@ -22,7 +22,7 @@ int main() {
     RingRatioLimit::Write(ringRatioLimit);
 
     /* -70.3125mV on all domains */
-    for (std::uint8_t i = 0; i < 5; ++i) {
+    for (std::uint8_t i = 0; i < 4; ++i) {
         VoltageFrequencySettings voltageFrequencySettings = VoltageFrequencySettings::Read(i).data;
         voltageFrequencySettings.SetConvertedVoltageOffset(-72);
         VoltageFrequencySettings::Write(voltageFrequencySettings, i);

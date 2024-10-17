@@ -33,7 +33,7 @@ namespace MSR {
         return Driver::ReadMSR<T>(reg);
 #else
         T val;
-        int fd = open("/dev/cpu/0/msr", O_RDONLY);
+        const std::int32_t fd = open("/dev/cpu/0/msr", O_RDONLY);
         lseek(fd, reg, SEEK_SET);
         read(fd, &val, sizeof(val));
         close(fd);
