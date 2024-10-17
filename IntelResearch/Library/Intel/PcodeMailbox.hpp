@@ -31,24 +31,14 @@ namespace PcodeMailbox {
         return full;
     }
 
-    template<typename T = std::uint32_t>
-    PcodeMailboxFull<T> Write(const std::uint32_t command, const T data) noexcept {
-        return SendCommand(command, data, true);
-    }
-
-    template<typename T = std::uint32_t>
-    PcodeMailboxFull<T> Read(const std::uint32_t command) noexcept {
-        return SendCommand<T>(command, T(), false);
-    }
-
     template<typename T, const std::uint32_t read, const std::uint32_t write>
     struct Command {
         static PcodeMailboxFull<T> Read(const std::uint32_t extra = 0) noexcept {
-            return PcodeMailbox::Read<T>(read | extra);
+            return SendCommand(read | extra, T(), false);
         }
 
         static PcodeMailboxFull<T> Write(const T data, const std::uint32_t extra = 0) noexcept {
-            return PcodeMailbox::Write(write | extra, data);
+            return SendCommand(write | extra, data, true);
         }
     };
 } // namespace PcodeMailbox

@@ -1,12 +1,10 @@
 #pragma once
 
 #include "../Impl/MSR.hpp"
-#include "SDK/DomainID.hpp"
 #include "SDK/Mailbox/OC/OCMailboxFull.hpp"
 #include <cstdint>
 
 namespace OCMailbox {
-    /* TODO: is reading status possible? */
     template<typename T>
     OCMailboxFull<T> SendCommand(OCMailboxFull<T> full) noexcept {
         static_assert(sizeof(T) == 4, "OCMailbox::SendCommand: sizeof(T) must be 4 bytes");
