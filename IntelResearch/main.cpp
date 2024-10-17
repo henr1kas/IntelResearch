@@ -36,6 +36,7 @@ int main() {
         IccMax::Write(curr, i);
     }
 
+    /* Set Power Limits */
     PackagePowerLimit packagePowerLimit = PackagePowerLimit::Read();
     PL3Control pl3Control = PL3Control::Read();
     PL4Control pl4Control = PL4Control::Read();
@@ -57,8 +58,13 @@ int main() {
     MMIO::Write(MchBar::Get() + 0x59A0ull, pl1);
     MMIO::Write(MchBar::Get() + 0x59A4ull, pl2);
 
+    /* Disable turbo */
+    auto data = IA32MiscEnable::Read();
+    data.turboDisable = 1;
+    IA32MiscEnable::Write(data);
+
     /* Turbo ratio limits are readonly on i7-9750hf */
-    /* TODO: Speed Shift EPP */
+    /* TODO: Speed Shift EPP, Limit reasons */
 
     Library::Deinit();
     return 0;

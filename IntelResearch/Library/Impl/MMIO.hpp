@@ -3,6 +3,7 @@
 #ifdef _WIN32
 #include "Windows/Driver.hpp"
 #else
+#include <cstring>
 #include <sys/mman.h>
 #endif
 
@@ -46,7 +47,7 @@ namespace MMIO {
         Driver::WriteMMIO<T>(address, value);
 #else
         const std::uintptr_t mapped = MapAddress(address);
-        *reinterpret_cast<volatile T*>(mapped) = value;
+        std::memcpy(reinterpret_cast<void*>(mapped), &value, sizeof(T));
         UnmapAddress(mapped);
 #endif
     }

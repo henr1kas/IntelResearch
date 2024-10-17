@@ -187,7 +187,6 @@ namespace Driver {
         return val;
     }
 
-    /* untested */
     template<typename T>
     void WriteMMIO(const std::uintptr_t address, const T val) noexcept {
         static_assert(sizeof(T) == 1 || sizeof(T) == 2 || sizeof(T) == 4 || sizeof(T) == 8, "Driver::WriteMMIO: sizeof(T) must be 1/2/4/8 bytes");
