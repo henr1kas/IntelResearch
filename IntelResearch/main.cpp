@@ -36,7 +36,29 @@ int main() {
         IccMax::Write(curr, i);
     }
 
-    /* TODO: MSR/MMIO PL[1-3] */
+    PackagePowerLimit packagePowerLimit = PackagePowerLimit::Read();
+    PL3Control pl3Control = PL3Control::Read();
+    PL4Control pl4Control = PL4Control::Read();
+
+    auto& pl1 = packagePowerLimit.pl1;
+    auto& pl2 = packagePowerLimit.pl2;
+    auto& pl3 = pl3Control.pl3;
+    auto& pl4 = pl4Control.pl4;
+
+    pl1.powerLimit = 32767;
+    pl1.criticalPowerClamp = 0;
+    pl1.time = 127;
+    pl2.powerLimit = 32767;
+    pl2.time = 127;
+    PackagePowerLimit::Write(packagePowerLimit);
+    PL3Control::Write(pl3Control);
+    PL4Control::Write(pl4Control);
+
+    MMIO::Write(MchBar::Get() + 0x59A0ull, pl1);
+    MMIO::Write(MchBar::Get() + 0x59A4ull, pl2);
+
+    /* Turbo ratio limits are readonly on i7-9750hf */
+    /* TODO: Speed Shift EPP */
 
     Library::Deinit();
     return 0;

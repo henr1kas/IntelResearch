@@ -140,9 +140,11 @@
     <ClInclude Include="Library\Impl\Windows\Driver.hpp" />
     <ClInclude Include="Library\Intel\OCMailbox.hpp" />
     <ClInclude Include="Library\Intel\PcodeMailbox.hpp" />
+    <ClInclude Include="Library\Intel\PowerLimit.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\AvxRatioOffset.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\IccMax.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\MiscTurboControl.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\PerCoreRatioLimit.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\VoltageFrequencySettings.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\DomainID.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\OCMailboxCC.hpp" />
@@ -160,6 +162,8 @@
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerLimit.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerSKU.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerSKUUnit.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\PL3Control.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\PL4Control.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\RingRatioLimit.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\TemperatureTarget.hpp" />
     <ClInclude Include="Library\Library.hpp" />
