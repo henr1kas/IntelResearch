@@ -144,6 +144,7 @@
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\AvxRatioOffset.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\IccMax.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\MiscTurboControl.hpp" />
+    <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\OCCapabilities.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\PerCoreRatioLimit.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\Command\VoltageFrequencySettings.hpp" />
     <ClInclude Include="Library\Intel\SDK\Mailbox\OC\DomainID.hpp" />
@@ -164,8 +165,10 @@
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerSKUUnit.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PL3Control.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PL4Control.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\PowerCtl.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\RingRatioLimit.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\TemperatureTarget.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\TurboRatioLimit.hpp" />
     <ClInclude Include="Library\Library.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -2,12 +2,6 @@
 
 #include <iostream>
 
-/*
-inline std::uint8_t ReadTemperatureOffset() noexcept {
-    return static_cast<std::uint8_t>((MSR::Read(MSRRegister::MSR1A2) & (127 << 24)) >> 24);
-}
-*/
-
 int main() {
     Library::Init();
 
@@ -29,12 +23,11 @@ int main() {
     }
 
     /* Set IccMax for all VR domains to 255.75A in MSR/MMIO (MMIO auto update based on MSR val) */
+    IccMax iccMax;
+    iccMax.iccMax = 1023;
     /* VR Domains i7-9750hf 0 - IA (core/cache), 1 - GT[s/us], 2 = SA */
-    for (std::uint8_t i = 0; i <= 2; ++i) {
-        auto curr = IccMax::Read(i).data;
-        curr.iccMax = 1023;
-        IccMax::Write(curr, i);
-    }
+    for (std::uint8_t i = 0; i <= 2; ++i)
+        IccMax::Write(iccMax, i);
 
     /* Set Power Limits */
     PackagePowerLimit packagePowerLimit = PackagePowerLimit::Read();
@@ -63,7 +56,12 @@ int main() {
     data.turboDisable = 1;
     IA32MiscEnable::Write(data);
 
-    /* Turbo ratio limits are readonly on i7-9750hf */
+    /* Turbo ratio limits */
+    auto turboRatioLimit = TurboRatioLimit::Read();
+    for (std::uint8_t i = 1; i < 8; ++i)
+        turboRatioLimit.limit[i] = turboRatioLimit.limit[0];
+    TurboRatioLimit::Write(turboRatioLimit);
+
     /* TODO: Speed Shift EPP, Limit reasons */
 
     Library::Deinit();
