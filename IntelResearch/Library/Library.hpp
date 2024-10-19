@@ -107,6 +107,7 @@ namespace Library {
 #include "Intel/SDK/Mailbox/Pcode/SKLVRDomain.hpp"
 #include "Intel/SDK/MMIO/MchBar.hpp"
 #include "Intel/SDK/MSR/Register/IA32MiscEnable.hpp"
+#include "Intel/SDK/MSR/Register/IA32PerfStatus.hpp"
 #include "Intel/SDK/MSR/Register/IA32ThermStatus.hpp"
 #include "Intel/SDK/MSR/Register/PackagePowerLimit.hpp"
 #include "Intel/SDK/MSR/Register/PackagePowerSKU.hpp"

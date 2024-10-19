@@ -159,6 +159,7 @@
     <ClInclude Include="Library\Intel\SDK\Mailbox\Pcode\SKLVRDomain.hpp" />
     <ClInclude Include="Library\Intel\SDK\MMIO\MchBar.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\IA32MiscEnable.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\IA32PerfStatus.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\IA32ThermStatus.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerLimit.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\PackagePowerSKU.hpp" />

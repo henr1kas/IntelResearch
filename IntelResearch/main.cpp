@@ -11,20 +11,6 @@ int main() {
     miscTurboControl.ringDownbin = 1;
     MiscTurboControl::Write(miscTurboControl);
 
-    /* Set Ring Ratio Limit to 33 (TODO: does it do any difference) */
-    RingRatioLimit ringRatioLimit = RingRatioLimit::Read();
-    ringRatioLimit.ringMaxOcRatio = 33;
-    RingRatioLimit::Write(ringRatioLimit);
-
-    /* undervolt */
-    for (std::uint8_t i = 0; i <= 4; ++i) {
-        VoltageFrequencySettings voltageFrequencySettings = VoltageFrequencySettings::Read(i).data;
-        voltageFrequencySettings.SetConvertedVoltageOffset(-72);
-        if (i == 0)
-            voltageFrequencySettings.SetConvertedVoltageOffset(-103);
-        VoltageFrequencySettings::Write(voltageFrequencySettings, i);
-    }
-
     /* Set IccMax for all VR domains to 255.75A in MSR/MMIO (MMIO auto update based on MSR val) */
     IccMax iccMax;
     iccMax.iccMax = 1023;
@@ -55,11 +41,9 @@ int main() {
     MMIO::Write(MchBar::Get() + 0x59A4ull, pl2);
 
     /* Disable turbo */
-    /*
     auto data = IA32MiscEnable::Read();
-    data.turboDisable = 1;
+    data.turboDisable = 0; // not disabling rn
     IA32MiscEnable::Write(data);
-    */
 
     /* Turbo ratio limits */
     auto turboRatioLimit = TurboRatioLimit::Read();
@@ -67,16 +51,56 @@ int main() {
         turboRatioLimit.limit[i] = 33;
     TurboRatioLimit::Write(turboRatioLimit);
 
-    VoltageFrequencySettings voltageFrequencySettings = VoltageFrequencySettings::Read(3).data;
+    /* Set Ring Ratio Limit */
+    RingRatioLimit ringRatioLimit = RingRatioLimit::Read();
+    ringRatioLimit.ringMaxOcRatio = 33;
+    RingRatioLimit::Write(ringRatioLimit);
+
+    /* Undervolt */
+    for (std::uint8_t i = 0; i <= 4; ++i) {
+        /* CPU core and cache handled per core below */
+        if (i == 0 || i == 2)
+            continue;
+        VoltageFrequencySettings voltageFrequencySettings = VoltageFrequencySettings::Read(i).data;
+        voltageFrequencySettings.SetConvertedVoltageOffset(-72);
+        VoltageFrequencySettings::Write(voltageFrequencySettings, i);
+    }
+
+    /* Undervolt per ratio */
+    VoltageFrequencySettings vfCore = VoltageFrequencySettings::Read(0).data;
+    VoltageFrequencySettings vf = VoltageFrequencySettings::Read(2).data;
     while (true) {
-        const auto freq = UncoreFrequency::Read().uncoreFrequency;
-        if (freq <= 26) {
-            voltageFrequencySettings.SetConvertedVoltageOffset(-72);
-        } else {
-            voltageFrequencySettings.SetConvertedVoltageOffset(-113);
+        switch (UncoreFrequency::Read().uncoreFrequency) {
+            case 30: {
+                vf.SetConvertedVoltageOffset(-148); // -150 err 960M (-148 untetsd)
+                break;
+            }
+            case 31: {
+                vf.SetConvertedVoltageOffset(-152); // -154 err 960M
+                break;
+            }
+            case 32: {
+                vf.SetConvertedVoltageOffset(-156); // -158 err 960M
+                break;
+            }
+            case 33: {
+                vf.SetConvertedVoltageOffset(-158); // -160 err 960M
+                break;
+            }
+                /* IDK HOW TO TEST THESE PROPERTLY */
+            case 40: {
+                vf.SetConvertedVoltageOffset(-150); // -152 err 180M
+                break;
+            }
+            default: {
+                vf.SetConvertedVoltageOffset(-72); // just a rand value
+                break;
+            }
         }
 
-        VoltageFrequencySettings::Write(voltageFrequencySettings, 3);
+        vfCore.voltageOffsetS11 = vf.voltageOffsetS11;
+        VoltageFrequencySettings::Write(vfCore, 0);
+        VoltageFrequencySettings::Write(vf, 2);
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 
