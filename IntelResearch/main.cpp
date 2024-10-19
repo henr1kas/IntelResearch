@@ -57,34 +57,56 @@ int main() {
     RingRatioLimit::Write(ringRatioLimit);
 
     /* Undervolt */
-    for (std::uint8_t i = 0; i <= 4; ++i) {
-        /* CPU core and cache handled per core below */
-        if (i == 0 || i == 2)
-            continue;
-        VoltageFrequencySettings voltageFrequencySettings = VoltageFrequencySettings::Read(i).data;
-        voltageFrequencySettings.SetConvertedVoltageOffset(-72);
-        VoltageFrequencySettings::Write(voltageFrequencySettings, i);
-    }
+
+    /* sys agent*/
+    VoltageFrequencySettings voltageFrequencySettings = VoltageFrequencySettings::Read(4).data;
+    voltageFrequencySettings.SetConvertedVoltageOffset(-95); // -103 crash
+    VoltageFrequencySettings::Write(voltageFrequencySettings, 4);
 
     /* Undervolt per ratio */
     VoltageFrequencySettings vfCore = VoltageFrequencySettings::Read(0).data;
     VoltageFrequencySettings vf = VoltageFrequencySettings::Read(2).data;
     while (true) {
+        // comment -> offset err 960M
         switch (UncoreFrequency::Read().uncoreFrequency) {
+            case 26: {
+                vf.SetConvertedVoltageOffset(-138); // -140
+                break;
+            }
+            case 27: {
+                vf.SetConvertedVoltageOffset(-134); // -136
+                break;
+            }
+            case 28: {
+                vf.SetConvertedVoltageOffset(-142); // -144
+                break;
+            }
+            case 29: {
+                vf.SetConvertedVoltageOffset(-140); // -142
+                break;
+            }
             case 30: {
-                vf.SetConvertedVoltageOffset(-148); // -150 err 960M (-148 untetsd)
+                vf.SetConvertedVoltageOffset(-148); // -150
                 break;
             }
             case 31: {
-                vf.SetConvertedVoltageOffset(-152); // -154 err 960M
+                vf.SetConvertedVoltageOffset(-152); // -154
                 break;
             }
             case 32: {
-                vf.SetConvertedVoltageOffset(-156); // -158 err 960M
+                vf.SetConvertedVoltageOffset(-156); // -158
                 break;
             }
             case 33: {
-                vf.SetConvertedVoltageOffset(-158); // -160 err 960M
+                vf.SetConvertedVoltageOffset(-158); // -160
+                break;
+            }
+            case 34: {
+                vf.SetConvertedVoltageOffset(-152); // -154
+                break;
+            }
+            case 35: {
+                vf.SetConvertedVoltageOffset(-158); // -160
                 break;
             }
                 /* IDK HOW TO TEST THESE PROPERTLY */
@@ -102,6 +124,13 @@ int main() {
         VoltageFrequencySettings::Write(vfCore, 0);
         VoltageFrequencySettings::Write(vf, 2);
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+
+    /* reset voltages */
+    for (std::uint8_t i = 0; i <= 4; ++i) {
+        VoltageFrequencySettings voltageFrequencySettings = VoltageFrequencySettings::Read(i).data;
+        voltageFrequencySettings.SetConvertedVoltageOffset(0);
+        VoltageFrequencySettings::Write(voltageFrequencySettings, i);
     }
 
     /* TODO: Speed Shift EPP, Limit reasons , imgui gui, config loading */
