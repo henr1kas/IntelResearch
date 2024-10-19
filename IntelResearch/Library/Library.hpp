@@ -117,3 +117,4 @@ namespace Library {
 #include "Intel/SDK/MSR/Register/RingRatioLimit.hpp"
 #include "Intel/SDK/MSR/Register/TemperatureTarget.hpp"
 #include "Intel/SDK/MSR/Register/TurboRatioLimit.hpp"
+#include "Intel/SDK/MSR/Register/UncoreFrequency.hpp"

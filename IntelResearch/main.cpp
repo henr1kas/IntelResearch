@@ -1,6 +1,7 @@
 #include "Library/Library.hpp"
 
 #include <iostream>
+#include <thread>
 
 int main() {
     Library::Init();
@@ -10,15 +11,17 @@ int main() {
     miscTurboControl.ringDownbin = 1;
     MiscTurboControl::Write(miscTurboControl);
 
-    /* Set Ring Ratio Limit to 45 (TODO: does it do any difference) */
+    /* Set Ring Ratio Limit to 33 (TODO: does it do any difference) */
     RingRatioLimit ringRatioLimit = RingRatioLimit::Read();
-    ringRatioLimit.ringMaxOcRatio = 45;
+    ringRatioLimit.ringMaxOcRatio = 33;
     RingRatioLimit::Write(ringRatioLimit);
 
-    /* -70.3125mV on all domains */
+    /* undervolt */
     for (std::uint8_t i = 0; i <= 4; ++i) {
         VoltageFrequencySettings voltageFrequencySettings = VoltageFrequencySettings::Read(i).data;
         voltageFrequencySettings.SetConvertedVoltageOffset(-72);
+        if (i == 0)
+            voltageFrequencySettings.SetConvertedVoltageOffset(-103);
         VoltageFrequencySettings::Write(voltageFrequencySettings, i);
     }
 
@@ -52,17 +55,32 @@ int main() {
     MMIO::Write(MchBar::Get() + 0x59A4ull, pl2);
 
     /* Disable turbo */
+    /*
     auto data = IA32MiscEnable::Read();
     data.turboDisable = 1;
     IA32MiscEnable::Write(data);
+    */
 
     /* Turbo ratio limits */
     auto turboRatioLimit = TurboRatioLimit::Read();
-    for (std::uint8_t i = 1; i < 8; ++i)
-        turboRatioLimit.limit[i] = turboRatioLimit.limit[0];
+    for (std::uint8_t i = 0; i < 8; ++i)
+        turboRatioLimit.limit[i] = 33;
     TurboRatioLimit::Write(turboRatioLimit);
 
-    /* TODO: Speed Shift EPP, Limit reasons */
+    VoltageFrequencySettings voltageFrequencySettings = VoltageFrequencySettings::Read(3).data;
+    while (true) {
+        const auto freq = UncoreFrequency::Read().uncoreFrequency;
+        if (freq <= 26) {
+            voltageFrequencySettings.SetConvertedVoltageOffset(-72);
+        } else {
+            voltageFrequencySettings.SetConvertedVoltageOffset(-113);
+        }
+
+        VoltageFrequencySettings::Write(voltageFrequencySettings, 3);
+        std::this_thread::sleep_for(std::chrono::milliseconds(10));
+    }
+
+    /* TODO: Speed Shift EPP, Limit reasons , imgui gui, config loading */
 
     Library::Deinit();
     return 0;

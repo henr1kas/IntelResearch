@@ -169,6 +169,7 @@
     <ClInclude Include="Library\Intel\SDK\MSR\Register\RingRatioLimit.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\TemperatureTarget.hpp" />
     <ClInclude Include="Library\Intel\SDK\MSR\Register\TurboRatioLimit.hpp" />
+    <ClInclude Include="Library\Intel\SDK\MSR\Register\UncoreFrequency.hpp" />
     <ClInclude Include="Library\Library.hpp" />
   </ItemGroup>
   <ItemGroup>
